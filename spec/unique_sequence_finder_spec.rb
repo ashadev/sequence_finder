@@ -10,10 +10,12 @@ RSpec.describe UniqueSequenceFinder do
   let(:finder) { UniqueSequenceFinder.new(dictionary_file, sequences_file, words_file) }
 
   before do
-    # Create a mock dictionary file before each test
-    File.write(dictionary_file, "carrots\ngive\narrows\ncarrots\ngive\narrows")
+    fake_content = "carrots\ngive\narrows\ncarrots\ngive\narrows"
+    
     # Mocking the URI.open to avoid an actual network call
-    allow(URI).to receive(:open).with(dictionary_url).and_return("carrots\ngive\narrows\ncarrots\ngive\narrows")
+    allow(URI).to receive(:open).with(dictionary_url).and_return(fake_content)
+    # Create a mock dictionary file before each test
+    File.write(dictionary_file, fake_content)
   end
 
   after do
